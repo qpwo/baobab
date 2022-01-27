@@ -18,4 +18,6 @@
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
     "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
     "typescript.format.semicolons": "insert",
+    "random-string.charctors": "abcdefghijklmnopqrstuvwxyz",
+    "random-string.length": 4,
 }
