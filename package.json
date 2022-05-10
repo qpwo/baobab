@@ -1,5 +1,5 @@
 {
-  "name": "baobab",
+  "name": "sbaobab",
   "version": "2.6.2",
   "description": "JavaScript persistent data tree with cursors.",
   "main": "./dist/index.js",
@@ -46,7 +46,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Yomguithereal/baobab.git"
+    "url": "https://github.com/qpwo/baobab.git"
   },
   "keywords": [
     "cursors",
@@ -60,7 +60,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Yomguithereal/baobab/issues"
+    "url": "https://github.com/qpwo/baobab/issues"
   },
-  "homepage": "https://github.com/Yomguithereal/baobab"
+  "homepage": "https://github.com/qpwo/baobab"
 }
