@@ -228,14 +228,34 @@ export class SBaobab<T extends PlainObject = PlainObject> extends SCommonBaobabM
 
 }
 
-export type ROBaobab<T extends PlainObject = PlainObject> = Pick<SBaobab<T>, 'clone' | 'deepClone' | 'exists' | 'watch' | 'serialize' | 'project' | 'options' | 'get' | 'getMonkey' | 'on'> & {
+type EmitterMethods =
+  | 'on'
+  | 'once'
+  | 'unbindAll'
+  | 'off'
+  | 'emit'
+  | 'listeners'
+  | 'enable'
+  | 'disable'
+  | 'kill';
+
+type ROMethods =
+  | 'clone'
+  | 'deepClone'
+  | 'exists'
+  | 'serialize'
+  | 'project'
+  | 'get';
+
+
+export type ROBaobab<T extends PlainObject = PlainObject> = Pick<SBaobab<T>, EmitterMethods | ROMethods | 'watch' | 'options' | 'getMonkey'> & {
   select(): ROCursor<T, [], T>;
   select<K extends keyof T>(key: K): ROCursor<T[K], [...FullPath, K], T>;
   select<P extends DP<T>>(...path: P): ROCursor<DI<T, P>, [...FullPath, ...P], T>;
   select<P extends DP<T>>(path: P): ROCursor<DI<T, P>, [...FullPath, ...P], T>;
 };
 
-export type ROCursor<T, FullPath extends DP<Root> = unknown, Root = unknown> = Pick<SCursor<T, FullPath, Root>, 'clone' | 'deepClone' | 'exists' | 'serialize' | 'project' | 'get' | 'on'> & {
+export type ROCursor<T, FullPath extends DP<Root> = unknown, Root = unknown> = Pick<SCursor<T, FullPath, Root>, EmitterMethods | ROMethods> & {
   select<K extends keyof T>(key: K): ROCursor<T[K], [...FullPath, K], Root>;
   select<P extends DP<T>>(...path: P): ROCursor<DI<T, P>, [...FullPath, ...P], Root>; // TODO: forbid empty path
   select<P extends DP<T>>(path: P): ROCursor<DI<T, P>, [...FullPath, ...P], Root>;

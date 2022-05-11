@@ -1,6 +1,6 @@
 {
   "name": "sbaobab",
-  "version": "2.6.3",
+  "version": "2.6.4",
   "description": "JavaScript persistent data tree with cursors.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
