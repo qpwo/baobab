@@ -1,6 +1,6 @@
 {
   "name": "@qpwo/baobab-not-deep",
-  "version": "2.6.7",
+  "version": "2.6.8",
   "description": "like sbaobab but without all the deep types that kill tsc",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
