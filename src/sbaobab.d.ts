@@ -16,6 +16,8 @@ export abstract class SCommonBaobabMethods<T>  {
 
   get(): T;
   get<K extends keyof T>(key: K): T[K];
+  get<K1 extends keyof T, K2 extends keyof T[K1]>(k1: K1, k2: K2): T[K1][K2];
+  get<K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(k1: K1, k2: K2, k3: K3): T[K1][K2][K3];
 
   merge(value: Partial<T>): T;
   merge<K extends keyof T>(path: K, value: Partial<T[K]>): T[K];
@@ -23,9 +25,12 @@ export abstract class SCommonBaobabMethods<T>  {
   release(): void;
 
   set(value: T): T;
-  set<K extends keyof T>(key: K, value: T[K]): T[K];
+  set<K extends keyof T>(key: K, value: T[K]): void;
+  set<K1 extends keyof T, K2 extends keyof T[K1]>([k1, k2]: [K1, K2], val: T[K1][K2]): void;
+  set<K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>([k1, k2, k3]: [K1, K2, K3], val: T[K1][K2][K3]): void;
 
   exists(): boolean;
+
 }
 
 type Listener<T> = (e: {
@@ -69,10 +74,10 @@ export class SCursor<T> extends SCommonBaobabMethods<T> {
   listeners(_: 'update'): Listener<T>[];
   unbindAll(): this;
 
-  // once
-  // unbindAll
-  // off
   select<K extends keyof T>(key: K): SCursor<T[K]>;
+  select<K1 extends keyof T, K2 extends keyof T[K1]>(k1: K1, k2: K2): SCursor<T[K1][K2]>;
+  select<K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(k1: K1, k2: K2, k3: K3): SCursor<T[K1][K2][K3]>;
+
 }
 
 type WriteEvent = {data: {path: (string | number)[];};};
@@ -113,6 +118,8 @@ export class SBaobab<T> extends SCommonBaobabMethods<T> {
 
   select(): SCursor<T>;
   select<K extends keyof T>(key: K): SCursor<T[K]>;
+  select<K1 extends keyof T, K2 extends keyof T[K1]>(k1: K1, k2: K2): SCursor<T[K1][K2]>;
+  select<K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(k1: K1, k2: K2, k3: K3): SCursor<T[K1][K2][K3]>;
 
 }
 
@@ -133,8 +140,12 @@ type ROMethods =
 export type ROBaobab<T> = Pick<SBaobab<T>, EmitterMethods | ROMethods | 'options'> & {
   select(): ROCursor<T>;
   select<K extends keyof T>(key: K): ROCursor<T[K]>;
+  select<K1 extends keyof T, K2 extends keyof T[K1]>(k1: K1, k2: K2): ROCursor<T[K1][K2]>;
+  select<K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(k1: K1, k2: K2, k3: K3): ROCursor<T[K1][K2][K3]>;
 };
 
 export type ROCursor<T> = Pick<SCursor<T>, EmitterMethods | ROMethods> & {
   select<K extends keyof T>(key: K): ROCursor<T[K]>;
+  select<K1 extends keyof T, K2 extends keyof T[K1]>(k1: K1, k2: K2): ROCursor<T[K1][K2]>;
+  select<K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>(k1: K1, k2: K2, k3: K3): ROCursor<T[K1][K2][K3]>;
 };
