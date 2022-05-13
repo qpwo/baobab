@@ -1,6 +1,8 @@
-/**  */
+/** like sbaobab but it's not recursive */
 import {BaobabOptions} from './baobab';
 
+
+type GetNew<T> = (prev: T) => T;
 /**
  * This class only exists to group methods that are common to the Baobab and
  * Cursor classes. Since `Baobab.root` is a property while `Cursor#root` is a
@@ -12,7 +14,9 @@ export abstract class SCommonBaobabMethods<T>  {
 
   //TODO?: problematic overload? https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html#use-union-types
   apply(getNew: (state: T) => T): T;
-  apply<K extends keyof T>(key: K, getNew: (state: T[K]) => T[K]): T[K];
+  apply<K extends keyof T>(key: K, getNew: GetNew<T[K]>): T[K];
+  apply<K1 extends keyof T, K2 extends keyof T[K1]>([k1, k2]: [K1, K2], getNew: GetNew<T[K1][K2]>): void;
+  apply<K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>([k1, k2, k3]: [K1, K2, K3], getNew: GetNew<T[K1][K2][K3]>): void;
 
   get(): T;
   get<K extends keyof T>(key: K): T[K];
