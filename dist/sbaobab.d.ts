@@ -30,6 +30,7 @@ export abstract class SCommonBaobabMethods<T>  {
   set<K1 extends keyof T, K2 extends keyof T[K1], K3 extends keyof T[K1][K2]>([k1, k2, k3]: [K1, K2, K3], val: T[K1][K2][K3]): void;
 
   exists(): boolean;
+  exists<K extends keyof T>(k: K): boolean;
 
 }
 
